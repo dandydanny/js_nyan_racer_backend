@@ -36,3 +36,10 @@ class CreateMatches < ActiveRecord::Migration
     end
   end
 end
+
+
+
+
+game = Game.create
+player = Player.create(....)
+player.games << Game.create
