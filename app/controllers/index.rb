@@ -18,6 +18,8 @@ post '/results' do
 
   puts "----Winner----------------------"
   p params[:winner]
+
+  # Find winner's ID
   who_won = Player.find_by_initials(params[:winner]).id
   p who_won
 
@@ -37,7 +39,15 @@ get '/results' do
 
 end
 
+# Create the players
 post '/create_players' do
   player1 = Player.create(initials: params[:player_one])
   player2 = Player.create(initials: params[:player_two])
+
+  puts "----Players created. They are... ----------------"
+  puts player1
+  puts player2
+  puts "=== inspecting each player var ============================="
+  p player1
+  p player2
 end
