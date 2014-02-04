@@ -1,7 +1,12 @@
-
+body {
+  font-family: sans-serif;
+  color: white;
+  background: url('../nyancatbackground.gif');
+}
 
 .racer_table td {
   background-color: white;
+  opacity: 0.1;
   height: 100px;
   width: 100px;
 }
@@ -9,16 +14,18 @@
 .racer_table td.active {
   background: url('../nyancat.gif');
   background-size: 100%;
+  opacity: 1;
 }
 
 .racer_table td.trail {
   background: url('../nyancatbackground.gif');
   background-size: 100%;
+  opacity: 1;
 }
 
 table {
   border: 1px solid gray;
-  background-color: pink;
+  /*background-color: pink;*/
 }
 
 #countdown {
@@ -28,4 +35,8 @@ table {
   width: 100%;
   text-align: center;
   top: 20%;
+}
+
+.footer a {
+  text-decoration: none;
 }
