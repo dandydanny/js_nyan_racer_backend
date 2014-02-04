@@ -4,6 +4,7 @@ end
 
 post '/results' do
   # playerOne: playerOne, playerTwo: playerTwo, lapTime: lapTime, winner: player
+
   # create game
   game = Game.create
   # find user by initials

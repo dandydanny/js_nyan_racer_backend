@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $('#countdown').css("font-size", ($(document).height() / 2) + "px" );
   $('.racer_table td').css("height", $('.racer_table td').width())
+
+  // Create players
   playerOne = prompt("Enter initials for Player 1");
   playerTwo = prompt("Enter initials for Player 2");
   $.ajax({
@@ -17,11 +19,13 @@ $(document).ready(function() {
   })
 });
 
+// Set countdown clock and grid size
 $(window).resize(function() {
   $('#countdown').css("font-size", ($(document).height() / 2) + "px" );
   $('.racer_table td').css("height", $('.racer_table td').width())
 });
 
+// Detect keyboard input
 var race = function(){
   $(document).on('keyup', function(event) {
     if(event.keyCode === 65) { //a
@@ -33,6 +37,7 @@ var race = function(){
   });
 }
 
+// Advance a player in DOM
 var advancePlayer = function(player) {
   active = $("#player" + player + "_strip>td.active");
   active.removeClass("active");
@@ -54,7 +59,8 @@ var advancePlayer = function(player) {
     $.ajax({
       type: "POST",
       url: "/results",
-      data: {playerOne: playerOne, playerTwo: playerTwo, lapTime: lapTime, winner: winner},
+      // data: {playerOne: playerOne, playerTwo: playerTwo, lapTime: lapTime, winner: winner},
+      data: {winner: winner, laptime: lapTime},
       success: function(e){
         console.log(e);
         var r = confirm("Player " + player + " wins!\n\nWith a finsh time of " + lapTime + " seconds\n\nPlay again?\n");

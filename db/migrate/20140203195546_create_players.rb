@@ -3,6 +3,5 @@ class CreatePlayers < ActiveRecord::Migration
     create_table :players do |t|
       t.string :initials
       t.timestamps
-    end
   end
 end
