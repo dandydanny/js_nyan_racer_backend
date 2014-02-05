@@ -1,7 +1,12 @@
-<div id="countdown"> 3 </div>
+<div id="countdown"></div>
   <h1>Nyan jQuery Racer</h1>
   <p>Player 1: hit "J" to advance!<br>
   Player 2: hit "A" to advance!</p>
+  <form name="input" action="/start_race" method="post">
+    <input type="text" name="playerOne" id="p1" placeholder="Player 1 initials">
+    <input type="text" name="playerTwo" id="p2" placeholder="Player 2 initials">
+    <input type="submit" value="Start Race" id="start_race">
+  </form>
   <table class="racer_table">
     <tr id="player1_strip">
       <td class="active"></td>

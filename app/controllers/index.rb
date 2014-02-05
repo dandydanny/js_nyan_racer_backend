@@ -2,36 +2,60 @@ get '/' do
   erb :index
 end
 
+post '/start_race' do
+
+  # DEBUG
+  puts "--------------------------------"
+  p params[:playerOne]
+  p params[:playerTwo]
+
+  # find or create user by initials
+  @player = []
+  @player << Player.find_or_create_by_initials(params[:playerOne])
+  @player << Player.find_or_create_by_initials(params[:playerTwo])
+end
+
 post '/results' do
   # playerOne: playerOne, playerTwo: playerTwo, lapTime: lapTime, winner: player
 
   # create game
-  game = Game.create
-  # find user by initials
-  playerOne = Player.find_by_initials(params[:playerOne]);
-  playerTwo = Player.find_by_initials(params[:playerTwo]);
+  binding.pry
 
-  # DEBUG
-  puts "--------------------------------"
-  p playerOne
-  p playerTwo
+  puts "----Received these params from JS -------------------"
+  p params
+
 
   puts "----Winner----------------------"
   p params[:winner]
 
-  # Find winner's ID
-  who_won = Player.find_by_initials(params[:winner]).id
-  p who_won
+  winner = Player.find_or_create_by(initials: params[:winner])
+  loser = Player.find_or_create_by(initials: params[:loser])
+
+  #create game, save stuff with assoc.
+  game = Game.create(winner_id: winner.id, laptime: params[:laptime])
+  game.players << winner
+  game.players << loser
+
+  # find all games a player is associated to
+  winner.games
+
+  # find all players a game has (returns obj)
+  game.players
+
+  Player.find_by(id: 1)
+
+
+
 
   # Save race results in each player's Match table
-  playerOne.matches.create( game_id: game.id,
-                            winner: who_won,
-                            winning_time: params[:lapTime]
-                            );
-  playerTwo.matches.create( game_id: game.id,
-                            winner: who_won,
-                            winning_time: params[:lapTime]
-                            );
+  # playerOne.game.create( game_id: game.id,
+  #                           winner: who_won,
+  #                           winning_time: params[:lapTime]
+  #                           );
+  # playerTwo.game.create( game_id: game.id,
+  #                           winner: who_won,
+  #                           winning_time: params[:lapTime]
+  #                           );
 end
 
 get '/results' do

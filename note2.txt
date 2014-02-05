@@ -1,13 +1,13 @@
 class CreateGames < ActiveRecord::Migration
   def change
     create_table :games do |t|
+      t.string :title
+      t.integer :winner
+      t.integer :laptime
       t.timestamps
     end
   end
 end
-
-
-
 
 
 class CreatePlayers < ActiveRecord::Migration
@@ -19,27 +19,41 @@ class CreatePlayers < ActiveRecord::Migration
   end
 end
 
-
-
-
-
 class CreateMatches < ActiveRecord::Migration
   def change
     create_table :matches do |t|
-      t.integer :game
-      t.integer :user
-      t.integer :winner
-      t.string :winning_time
-      t.integer :player_id
-      t.integer :game_id
       t.timestamps
+      t.belongs_to :game
+      t.belongs_to :player
     end
   end
 end
 
-
-
-
 game = Game.create
 player = Player.create(....)
 player.games << Game.create
+
+How do I:
+Create players with their initials? p = Player.create(initials: "DL")
+Create a game? g = Game.create(title: "MyGame1")
+Save race results (winner, laptime)?
+
+How do I:
+Get the winner of a game? Game.find_by_id(1).winner
+Get the laptime of a game? Game.find_by_id(1).laptime
+Get a list of players who participated in a game?
+Get a list of games a player participated in?
+Get player's initials based on their ID?
+
+WInner and laptime: inheritant to game?
+should be in join table?
+
+Active record - needs temp var.
+
+Game.create(something: :something_else)
+Game.create("something" => "something")
+
+game.players.build
+
+
+
